@@ -1,8 +1,8 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Interfaces.Services;
 
 namespace Application.Abstractions.Factories;
 
 public interface IPaymentFactory
 {
-    IPayment Create();
+    IPaymentService Create();
 }
