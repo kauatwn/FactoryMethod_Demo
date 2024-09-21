@@ -6,14 +6,12 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PaymentController(IProcessPaymentUseCase useCase) : ControllerBase
+public class PaymentController : ControllerBase
 {
-    private IProcessPaymentUseCase UseCase { get; } = useCase;
-
     [HttpPost]
-    public IActionResult ProcessPayment(Payment payment)
+    public IActionResult ProcessPayment(IProcessPaymentUseCase useCase, Payment payment)
     {
-        var result = UseCase.Execute(payment);
+        var result = useCase.Execute(payment);
         return Ok(result);
     }
 }
