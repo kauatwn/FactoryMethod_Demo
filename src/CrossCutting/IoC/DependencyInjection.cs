@@ -11,8 +11,12 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        AddFactories(services);
         AddUseCases(services);
+    }
+    
+    public static void AddInfrastructure(this IServiceCollection services)
+    {
+        AddFactories(services);
     }
 
     private static void AddFactories(IServiceCollection services)
