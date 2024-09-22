@@ -1,5 +1,4 @@
-﻿using Application.Abstractions.Factories;
-using Domain.Interfaces;
+﻿using Domain.Interfaces.Factories;
 using Domain.Interfaces.Services;
 
 namespace Infrastructure.Factories.Payments.Base;

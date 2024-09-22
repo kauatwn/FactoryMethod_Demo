@@ -1,7 +1,7 @@
-﻿using Application.Abstractions.Factories;
-using Application.Abstractions.UseCases;
+﻿using Application.Abstractions.UseCases;
 using Application.UseCases;
 using Domain.Enums;
+using Domain.Interfaces.Factories;
 using Infrastructure.Factories.Payments;
 using Microsoft.Extensions.DependencyInjection;
 

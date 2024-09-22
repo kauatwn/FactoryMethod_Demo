@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces.Services;
 
-namespace Application.Abstractions.Factories;
+namespace Domain.Interfaces.Factories;
 
 public interface IPaymentFactory
 {
