@@ -6,7 +6,7 @@ namespace API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class PaymentController : ControllerBase
+public class PaymentsController : ControllerBase
 {
     [HttpPost]
     public IActionResult ProcessPayment(IProcessPaymentUseCase useCase, Payment payment)
