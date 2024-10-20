@@ -4,8 +4,8 @@ namespace Infrastructure.Services.Payments;
 
 public class BankTransferPaymentService : IPaymentService
 {
-    public string Pay(double amount)
+    public string ProcessPayment(double amount)
     {
-        return $"Processing bank transfer payment with amount: {amount}";
+        return $"Processing bank transfer payment with amount: {amount:C}";
     }
 }

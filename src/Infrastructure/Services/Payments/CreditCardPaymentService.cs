@@ -4,8 +4,8 @@ namespace Infrastructure.Services.Payments;
 
 public class CreditCardPaymentService : IPaymentService
 {
-    public string Pay(double amount)
+    public string ProcessPayment(double amount)
     {
-        return $"Processing credit card payment with amount: {amount}";
+        return $"Processing credit card payment with amount: {amount:C}";
     }
 }
