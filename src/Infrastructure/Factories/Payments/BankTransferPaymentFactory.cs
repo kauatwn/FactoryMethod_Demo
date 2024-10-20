@@ -1,12 +1,12 @@
-﻿using Domain.Interfaces.Services;
-using Infrastructure.Factories.Payments.Base;
+﻿using Domain.Interfaces.Factories;
+using Domain.Interfaces.Services;
 using Infrastructure.Services.Payments;
 
 namespace Infrastructure.Factories.Payments;
 
-public class BankTransferPaymentFactory : PaymentFactory
+public class BankTransferPaymentFactory : IPaymentFactory
 {
-    public override IPaymentService Create()
+    public IPaymentService Create()
     {
         return new BankTransferPaymentService();
     }
