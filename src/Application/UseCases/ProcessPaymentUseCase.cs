@@ -14,6 +14,6 @@ public class ProcessPaymentUseCase(IServiceProvider serviceProvider) : IProcessP
         var factory = ServiceProvider.GetRequiredKeyedService<IPaymentFactory>(payment.Method);
         var paymentService = factory.Create();
 
-        return paymentService.Pay(payment.Amount);
+        return paymentService.ProcessPayment(payment.Amount);
     }
 }
