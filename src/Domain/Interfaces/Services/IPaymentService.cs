@@ -2,5 +2,5 @@
 
 public interface IPaymentService
 {
-    string Pay(double amount);
+    string ProcessPayment(double amount);
 }
