@@ -2,8 +2,8 @@
 
 namespace Domain.Entities;
 
-public class Payment
+public class Payment(double amount, PaymentMethod? method)
 {
-    public double Amount { get; set; }
-    public PaymentMethod Method { get; set; }
+    public double Amount { get; set; } = amount;
+    public PaymentMethod? Method { get; set; } = method;
 }
