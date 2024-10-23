@@ -13,6 +13,6 @@ public class PaymentsController : ControllerBase
     public IActionResult ProcessPayment(IProcessPaymentUseCase useCase, Payment payment)
     {
         var result = useCase.Execute(payment);
-        return Ok(result);
+        return Created(string.Empty, result);
     }
 }
