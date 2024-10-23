@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Application\Application.csproj" />
-    <ProjectReference Include="..\..\src\CrossCutting\CrossCutting.csproj" />
   </ItemGroup>
 
   <ItemGroup>
