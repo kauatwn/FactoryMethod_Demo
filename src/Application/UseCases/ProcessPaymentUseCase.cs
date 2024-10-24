@@ -1,21 +1,32 @@
 ﻿using Application.Abstractions.UseCases;
 using Domain.Entities;
+using Domain.Enums;
 using Domain.Interfaces.Factories;
-using Domain.Interfaces.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.UseCases;
 
-public class ProcessPaymentUseCase(IServiceProvider serviceProvider) : IProcessPaymentUseCase
+public class ProcessPaymentUseCase(IPaymentFactory creditCardFactory, IPaymentFactory debitCardFactory)
+    : IProcessPaymentUseCase
 {
-    private IServiceProvider ServiceProvider { get; } = serviceProvider;
-    public IPaymentService PaymentService { get; private set; } = default!;
+    private IPaymentFactory CreditCardFactory { get; } = creditCardFactory;
+    private IPaymentFactory DebitCardFactory { get; } = debitCardFactory;
 
     public string Execute(Payment payment)
     {
-        var factory = ServiceProvider.GetRequiredKeyedService<IPaymentFactory>(payment.Method);
-        PaymentService = factory.Create();
+        if (payment.Method == null)
+        {
+            throw new InvalidOperationException("Payment method is not set.");
+        }
 
-        return PaymentService.ProcessPayment(payment.Amount);
+        var factory = payment.Method switch
+        {
+            PaymentMethod.CreditCard => CreditCardFactory,
+            PaymentMethod.DebitCard => DebitCardFactory,
+            _ => throw new InvalidOperationException("Invalid payment method.")
+        };
+
+        var paymentService = factory.Create();
+
+        return paymentService.ProcessPayment(payment.Amount);
     }
 }
