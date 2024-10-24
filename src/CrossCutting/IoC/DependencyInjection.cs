@@ -1,6 +1,5 @@
 ﻿using Application.Abstractions.UseCases;
 using Application.UseCases;
-using Domain.Enums;
 using Domain.Interfaces.Factories;
 using Infrastructure.Factories.Payments;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +12,7 @@ public static class DependencyInjection
     {
         AddUseCases(services);
     }
-    
+
     public static void AddInfrastructure(this IServiceCollection services)
     {
         AddFactories(services);
@@ -21,10 +20,8 @@ public static class DependencyInjection
 
     private static void AddFactories(IServiceCollection services)
     {
-        services.AddKeyedSingleton<IPaymentFactory, BankTransferPaymentFactory>(PaymentMethod.BankTransfer);
-        services.AddKeyedSingleton<IPaymentFactory, CreditCardPaymentFactory>(PaymentMethod.CreditCard);
-        services.AddKeyedSingleton<IPaymentFactory, DebitCardPaymentFactory>(PaymentMethod.DebitCard);
-        services.AddKeyedSingleton<IPaymentFactory, PayPalPaymentFactory>(PaymentMethod.PayPal);
+        services.AddScoped<IPaymentFactory, CreditCardPaymentFactory>();
+        services.AddScoped<IPaymentFactory, DebitCardPaymentFactory>();
     }
 
     private static void AddUseCases(IServiceCollection services)
