@@ -20,15 +20,15 @@ public class ProcessPaymentUseCaseTest
     }
 
     [Fact]
-    public void ShouldProcessPaymentWhenPaymentMethodIsSet()
+    public void ShouldProcessPaymentWhenPaymentMethodIsNotNull()
     {
         // Arrange
         var payment = new Payment(100.0, PaymentMethod.CreditCard);
         const string expectedMessage = "Payment processed successfully.";
 
-        CreditCardPaymentMock.Setup(f => f.Create()).Returns(PaymentServiceMock.Object);
+        CreditCardPaymentMock.Setup(pf => pf.Create()).Returns(PaymentServiceMock.Object);
 
-        PaymentServiceMock.Setup(s => s.ProcessPayment(It.IsAny<double>())).Returns(expectedMessage);
+        PaymentServiceMock.Setup(ps => ps.ProcessPayment(It.IsAny<double>())).Returns(expectedMessage);
 
         // Act
         var result = UseCase.Execute(payment);
@@ -36,35 +36,46 @@ public class ProcessPaymentUseCaseTest
         // Assert
         Assert.Equal(expectedMessage, result);
 
-        CreditCardPaymentMock.Verify(f => f.Create(), Times.Once);
-        PaymentServiceMock.Verify(s => s.ProcessPayment(It.IsAny<double>()), Times.Once);
+        CreditCardPaymentMock.Verify(pf => pf.Create(), Times.Once);
+        
+        PaymentServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Once);
     }
 
     [Fact]
-    public void ShouldThrowExceptionWhenPaymentMethodIsNotSet()
+    public void ShouldThrowInvalidOperationExceptionWhenPaymentMethodIsNull()
     {
         // Arrange
         var payment = new Payment(100.0, null);
+        const string expectedMessage = "Payment method is not set.";
 
         // Act
         Action act = () => UseCase.Execute(payment);
 
         // Assert
         var exception = Assert.Throws<InvalidOperationException>(act);
-        Assert.Equal("Payment method is not set.", exception.Message);
+        Assert.Equal(expectedMessage, exception.Message);
+        
+        CreditCardPaymentMock.Verify(pf => pf.Create(), Times.Never);
+        
+        PaymentServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Never);
     }
 
     [Fact]
-    public void ShouldThrowExceptionWhenPaymentMethodIsInvalid()
+    public void ShouldThrowInvalidOperationExceptionWhenPaymentMethodIsInvalid()
     {
         // Arrange
         var payment = new Payment(100.0, (PaymentMethod)999);
+        const string expectedMessage = "Invalid payment method.";
 
         // Act
         Action act = () => UseCase.Execute(payment);
 
         // Assert
         var exception = Assert.Throws<InvalidOperationException>(act);
-        Assert.Equal("Invalid payment method.", exception.Message);
+        Assert.Equal(expectedMessage, exception.Message);
+        
+        CreditCardPaymentMock.Verify(pf => pf.Create(), Times.Never);
+        
+        PaymentServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Never);
     }
 }
