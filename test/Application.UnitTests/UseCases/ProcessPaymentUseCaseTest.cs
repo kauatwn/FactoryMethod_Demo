@@ -9,14 +9,14 @@ namespace Application.UnitTests.UseCases;
 
 public class ProcessPaymentUseCaseTest
 {
-    private Mock<IPaymentFactory> CreditCardPaymentMock { get; } = new();
-    private Mock<IPaymentFactory> DebitCardPaymentMock { get; } = new();
-    private Mock<IPaymentService> PaymentServiceMock { get; } = new();
+    private Mock<IPaymentFactory> CreditCardFactoryMock { get; } = new();
+    private Mock<IPaymentFactory> DebitCardFactoryMock { get; } = new();
+    private Mock<IPaymentService> ServiceMock { get; } = new();
     private ProcessPaymentUseCase UseCase { get; }
 
     public ProcessPaymentUseCaseTest()
     {
-        UseCase = new ProcessPaymentUseCase(CreditCardPaymentMock.Object, DebitCardPaymentMock.Object);
+        UseCase = new ProcessPaymentUseCase(CreditCardFactoryMock.Object, DebitCardFactoryMock.Object);
     }
 
     [Fact]
@@ -26,9 +26,9 @@ public class ProcessPaymentUseCaseTest
         var payment = new Payment(100.0, PaymentMethod.CreditCard);
         const string expectedMessage = "Payment processed successfully.";
 
-        CreditCardPaymentMock.Setup(pf => pf.Create()).Returns(PaymentServiceMock.Object);
+        CreditCardFactoryMock.Setup(pf => pf.Create()).Returns(ServiceMock.Object);
 
-        PaymentServiceMock.Setup(ps => ps.ProcessPayment(It.IsAny<double>())).Returns(expectedMessage);
+        ServiceMock.Setup(ps => ps.ProcessPayment(It.IsAny<double>())).Returns(expectedMessage);
 
         // Act
         var result = UseCase.Execute(payment);
@@ -36,9 +36,9 @@ public class ProcessPaymentUseCaseTest
         // Assert
         Assert.Equal(expectedMessage, result);
 
-        CreditCardPaymentMock.Verify(pf => pf.Create(), Times.Once);
-        
-        PaymentServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Once);
+        CreditCardFactoryMock.Verify(pf => pf.Create(), Times.Once);
+
+        ServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Once);
     }
 
     [Fact]
@@ -54,10 +54,10 @@ public class ProcessPaymentUseCaseTest
         // Assert
         var exception = Assert.Throws<InvalidOperationException>(act);
         Assert.Equal(expectedMessage, exception.Message);
-        
-        CreditCardPaymentMock.Verify(pf => pf.Create(), Times.Never);
-        
-        PaymentServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Never);
+
+        CreditCardFactoryMock.Verify(pf => pf.Create(), Times.Never);
+
+        ServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Never);
     }
 
     [Fact]
@@ -73,9 +73,9 @@ public class ProcessPaymentUseCaseTest
         // Assert
         var exception = Assert.Throws<InvalidOperationException>(act);
         Assert.Equal(expectedMessage, exception.Message);
-        
-        CreditCardPaymentMock.Verify(pf => pf.Create(), Times.Never);
-        
-        PaymentServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Never);
+
+        CreditCardFactoryMock.Verify(pf => pf.Create(), Times.Never);
+
+        ServiceMock.Verify(ps => ps.ProcessPayment(It.IsAny<double>()), Times.Never);
     }
 }
