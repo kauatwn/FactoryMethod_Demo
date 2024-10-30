@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces.Factories;
 
-public interface IPaymentFactory
+public interface IDocumentFactory
 {
-    IPaymentService Create();
+    IDocumentService Create();
 }
