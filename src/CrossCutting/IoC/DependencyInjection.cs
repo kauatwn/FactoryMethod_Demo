@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions.UseCases;
 using Application.UseCases;
 using Domain.Interfaces.Factories;
-using Infrastructure.Factories.Payments;
+using Infrastructure.Factories.Documents;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CrossCutting.IoC;
@@ -20,12 +20,16 @@ public static class DependencyInjection
 
     private static void AddFactories(IServiceCollection services)
     {
-        services.AddScoped<IPaymentFactory, CreditCardPaymentFactory>();
-        services.AddScoped<IPaymentFactory, DebitCardPaymentFactory>();
+        services.AddScoped<IDocumentFactory, PdfDocumentFactory>();
+
+        // O Factory Method Pattern não permite alterar o tipo de objeto criado em tempo de execução.
+        // Para alternar entre diferentes tipos de objetos, seria necessário modificar a configuração do DI,
+        // o que exigiria uma reinicialização da aplicação. Para uma troca dinâmica em tempo de execução,
+        // é recomendado usar o Strategy Pattern.
     }
 
     private static void AddUseCases(IServiceCollection services)
     {
-        services.AddScoped<IProcessPaymentUseCase, ProcessPaymentUseCase>();
+        services.AddScoped<IPrintDocumentUseCase, PrintDocumentUseCase>();
     }
 }
