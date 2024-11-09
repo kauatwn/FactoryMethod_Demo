@@ -4,14 +4,14 @@ using Domain.Interfaces.Factories;
 
 namespace Application.UseCases;
 
-public class PrintDocumentUseCase(IDocumentFactory documentFactory) : IPrintDocumentUseCase
+public class PrintDocumentUseCase(IDocumentFactory factory) : IPrintDocumentUseCase
 {
-    private IDocumentFactory DocumentFactory { get; } = documentFactory;
+    private IDocumentFactory Factory { get; } = factory;
 
     public string Execute(Document document)
     {
-        var service = DocumentFactory.Create();
+        var service = Factory.Create();
 
-        return service.PrintDocument(document);
+        return service.Print(document);
     }
 }
