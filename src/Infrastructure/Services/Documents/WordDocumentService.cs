@@ -5,7 +5,7 @@ namespace Infrastructure.Services.Documents;
 
 public class WordDocumentService : IDocumentService
 {
-    public string PrintDocument(Document document)
+    public string Print(Document document)
     {
         return $"Word Document: {document.Title}";
     }

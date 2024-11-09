@@ -5,7 +5,7 @@ namespace Infrastructure.Services.Documents;
 
 public class PdfDocumentService : IDocumentService
 {
-    public string PrintDocument(Document document)
+    public string Print(Document document)
     {
         return $"PDF Document: {document.Title}";
     }
