@@ -15,9 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting", "src\CrossCu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "src\API\API.csproj", "{84CB1239-8F49-418D-A2F5-BBCAAFF439F9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DB8996B5-0CC8-47BE-AF0D-121D53B6AED4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DB8996B5-0CC8-47BE-AF0D-121D53B6AED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "test\Application.UnitTests\Application.UnitTests.csproj", "{D93A0D04-8432-4F39-A192-A4BFD663B755}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.UnitTests", "tests\Application.UnitTests\Application.UnitTests.csproj", "{D93A0D04-8432-4F39-A192-A4BFD663B755}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
