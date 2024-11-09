@@ -4,5 +4,5 @@ namespace Domain.Interfaces.Services;
 
 public interface IDocumentService
 {
-    string PrintDocument(Document document);
+    string Print(Document document);
 }
