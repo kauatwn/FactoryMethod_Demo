@@ -1,13 +1,18 @@
 ﻿using Domain.Interfaces.Factories;
 using Domain.Interfaces.Services;
 using Infrastructure.Services.Documents;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Factories.Documents;
 
-public class PdfDocumentFactory : IDocumentFactory
+public class PdfDocumentFactory(IConfiguration configuration) : IDocumentFactory
 {
+    private IConfiguration Configuration { get; } = configuration;
+
     public IDocumentService Create()
     {
-        return new PdfDocumentService();
+        var watermark = Configuration["DocumentSettings:Watermark"] ?? "Default Watermark";
+        
+        return new PdfDocumentService(watermark);
     }
 }
