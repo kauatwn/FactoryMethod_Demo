@@ -3,10 +3,12 @@ using Domain.Interfaces.Services;
 
 namespace Infrastructure.Services.Documents;
 
-public class WordDocumentService : IDocumentService
+public class WordDocumentService(string watermark) : IDocumentService
 {
+    public string Watermark { get; private set; } = watermark;
+
     public string Print(Document document)
     {
-        return $"Word Document: {document.Title}";
+        return $"Word Document: {document.Title} - {Watermark}";
     }
 }
