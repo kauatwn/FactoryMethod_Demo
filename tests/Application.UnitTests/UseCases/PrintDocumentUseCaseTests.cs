@@ -8,8 +8,8 @@ namespace Application.UnitTests.UseCases;
 
 public class PrintDocumentUseCaseTests
 {
-    private Mock<IDocumentFactory> DocumentFactoryMock { get; } = new();
     private Mock<IDocumentService> DocumentServiceMock { get; } = new();
+    private Mock<IDocumentFactory> DocumentFactoryMock { get; } = new();
     private PrintDocumentUseCase UseCase { get; }
 
     public PrintDocumentUseCaseTests()
@@ -18,7 +18,7 @@ public class PrintDocumentUseCaseTests
     }
 
     [Fact]
-    public void ShouldPrintDocumentSuccessfully()
+    public void ShouldCreateFactoryAndPrintWhenExecuteIsCalled()
     {
         // Arrange
         var document = new Document("Title");
@@ -32,6 +32,7 @@ public class PrintDocumentUseCaseTests
 
         // Assert
         Assert.Equal(expected, result);
+
         DocumentFactoryMock.Verify(df => df.Create(), Times.Once);
         DocumentServiceMock.Verify(ds => ds.Print(It.IsAny<Document>()), Times.Once);
     }
