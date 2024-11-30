@@ -20,16 +20,11 @@ public static class DependencyInjection
 
     private static void AddFactories(IServiceCollection services)
     {
-        services.AddScoped<IDocumentFactory, PdfDocumentFactory>();
-
-        // O Factory Method Pattern não permite alterar o tipo de objeto criado em tempo de execução.
-        // Para alternar entre diferentes tipos de objetos, seria necessário modificar a configuração do DI,
-        // o que exigiria uma reinicialização da aplicação. Para uma troca dinâmica em tempo de execução,
-        // é recomendado usar o Strategy Pattern.
+        services.AddScoped<IReportFactory, PdfReportFactory>();
     }
 
     private static void AddUseCases(IServiceCollection services)
     {
-        services.AddScoped<IPrintDocumentUseCase, PrintDocumentUseCase>();
+        services.AddScoped<IGenerateReportUseCase, GenerateReportUseCase>();
     }
 }
