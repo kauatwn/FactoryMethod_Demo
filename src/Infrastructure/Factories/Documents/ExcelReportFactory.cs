@@ -5,14 +5,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Factories.Documents;
 
-public class WordDocumentFactory(IConfiguration configuration) : IDocumentFactory
+public class ExcelReportFactory(IConfiguration configuration) : IReportFactory
 {
     private IConfiguration Configuration { get; } = configuration;
 
-    public IDocumentService Create()
+    public IReportService Create()
     {
-        var watermark = Configuration["DocumentSettings:Watermark"] ?? "Default Watermark";
+        string template = Configuration["ReportSettings:ExcelTemplate"] ?? "Default Excel Template";
 
-        return new WordDocumentService(watermark);
+        return new ExcelReportService(template);
     }
 }
