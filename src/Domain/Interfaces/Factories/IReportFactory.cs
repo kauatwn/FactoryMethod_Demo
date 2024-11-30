@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces.Factories;
 
-public interface IDocumentFactory
+public interface IReportFactory
 {
-    IDocumentService Create();
+    IReportService Create();
 }
