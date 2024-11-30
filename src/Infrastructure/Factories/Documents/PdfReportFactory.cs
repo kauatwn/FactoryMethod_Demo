@@ -5,14 +5,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Factories.Documents;
 
-public class PdfDocumentFactory(IConfiguration configuration) : IDocumentFactory
+public class PdfReportFactory(IConfiguration configuration) : IReportFactory
 {
     private IConfiguration Configuration { get; } = configuration;
 
-    public IDocumentService Create()
+    public IReportService Create()
     {
-        var watermark = Configuration["DocumentSettings:Watermark"] ?? "Default Watermark";
-        
-        return new PdfDocumentService(watermark);
+        string watermark = Configuration["ReportSettings:PdfWatermark"] ?? "Default PDF Watermark";
+
+        return new PdfReportService(watermark);
     }
 }
