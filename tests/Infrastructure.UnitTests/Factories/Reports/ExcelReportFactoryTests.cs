@@ -1,27 +1,30 @@
 using Domain.Interfaces.Services;
-using Infrastructure.Factories.Documents;
-using Infrastructure.Services.Documents;
-using Microsoft.Extensions.Configuration;
+using Infrastructure.Factories.Reports;
+using Infrastructure.Options;
+using Infrastructure.Services.Reports;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace Infrastructure.UnitTests.Factories.Reports;
 
 public class ExcelReportFactoryTests
 {
-    private Mock<IConfiguration> MockConfiguration { get; } = new();
+    private Mock<IOptions<ReportOptions>> MockOptions { get; } = new();
     private ExcelReportFactory Factory { get; }
 
     public ExcelReportFactoryTests()
     {
-        Factory = new ExcelReportFactory(MockConfiguration.Object);
+        Factory = new ExcelReportFactory(MockOptions.Object);
     }
 
     [Fact]
-    public void ShouldCreateExcelReportServiceWithTemplate()
+    public void ShouldCreateExcelReportServiceWithTemplateWhenIsProvided()
     {
         // Arrange
+        var options = new ReportOptions { ExcelTemplate = "Custom Excel Template" };
         const string expected = "Custom Excel Template";
-        MockConfiguration.Setup(c => c["ReportSettings:ExcelTemplate"]).Returns(expected);
+
+        MockOptions.Setup(o => o.Value).Returns(options);
 
         // Act
         IReportService service = Factory.Create();
@@ -30,15 +33,17 @@ public class ExcelReportFactoryTests
         var excelReportService = Assert.IsType<ExcelReportService>(service);
         Assert.Equal(expected, excelReportService.Template);
 
-        MockConfiguration.Verify(c => c["ReportSettings:ExcelTemplate"], Times.Once);
+        MockOptions.Verify(o => o.Value, Times.Once);
     }
 
     [Fact]
-    public void ShouldCreateExcelReportServiceWithDefaultTemplateWhenNotProvided()
+    public void ShouldCreateExcelReportServiceWithDefaultTemplateWhenIsNotProvided()
     {
         // Arrange
+        var options = new ReportOptions();
         const string expected = "Default Excel Template";
-        MockConfiguration.Setup(c => c["ReportSettings:ExcelTemplate"]).Returns((string?)null);
+
+        MockOptions.Setup(o => o.Value).Returns(options);
 
         // Act
         IReportService service = Factory.Create();
@@ -47,6 +52,6 @@ public class ExcelReportFactoryTests
         var excelReportService = Assert.IsType<ExcelReportService>(service);
         Assert.Equal(expected, excelReportService.Template);
 
-        MockConfiguration.Verify(c => c["ReportSettings:ExcelTemplate"], Times.Once);
+        MockOptions.Verify(o => o.Value, Times.Once);
     }
 }
