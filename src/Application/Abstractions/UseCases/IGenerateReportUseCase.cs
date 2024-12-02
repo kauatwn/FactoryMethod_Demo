@@ -4,5 +4,5 @@ namespace Application.Abstractions.UseCases;
 
 public interface IGenerateReportUseCase
 {
-    string Execute(Report document);
+    string Execute(Report report);
 }

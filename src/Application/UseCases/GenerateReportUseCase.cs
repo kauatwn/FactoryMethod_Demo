@@ -9,10 +9,10 @@ public class GenerateReportUseCase(IReportFactory factory) : IGenerateReportUseC
 {
     private IReportFactory Factory { get; } = factory;
 
-    public string Execute(Report document)
+    public string Execute(Report report)
     {
         IReportService service = Factory.Create();
 
-        return service.Generate(document);
+        return service.Generate(report);
     }
 }
