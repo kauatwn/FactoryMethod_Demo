@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
-using Infrastructure.Services.Documents;
+using Infrastructure.Services.Reports;
 
 namespace Infrastructure.UnitTests.Services.Reports;
 
@@ -12,7 +12,7 @@ public class ExcelReportServiceTests
     {
         // Arrange
         var report = new Report("Title", "Content");
-        var expected = $"Excel Report: {report.Title} - Template: {Service.Template}\nContent: {report.Content}";
+        var expected = $"{report.Title}\n{report.Content} - Template: {Service.Template}";
 
         // Act
         string result = Service.Generate(report);
