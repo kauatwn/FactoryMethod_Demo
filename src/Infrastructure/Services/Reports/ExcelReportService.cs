@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Services;
 
-namespace Infrastructure.Services.Documents;
+namespace Infrastructure.Services.Reports;
 
 public class ExcelReportService(string template) : IReportService
 {
@@ -9,6 +9,6 @@ public class ExcelReportService(string template) : IReportService
 
     public string Generate(Report report)
     {
-        return $"Excel Report: {report.Title} - Template: {Template}\nContent: {report.Content}";
+        return $"{report.Title}\n{report.Content} - Template: {Template}";
     }
 }
