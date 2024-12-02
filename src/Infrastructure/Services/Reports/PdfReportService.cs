@@ -1,7 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces.Services;
 
-namespace Infrastructure.Services.Documents;
+namespace Infrastructure.Services.Reports;
 
 public class PdfReportService(string watermark) : IReportService
 {
@@ -9,6 +9,6 @@ public class PdfReportService(string watermark) : IReportService
 
     public string Generate(Report report)
     {
-        return $"PDF Report: {report.Title} - {Watermark}\nContent: {report.Content}";
+        return $"{report.Title}\n{report.Content} - Watermark: {Watermark}";
     }
 }
