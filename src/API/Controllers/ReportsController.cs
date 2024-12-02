@@ -9,11 +9,9 @@ namespace API.Controllers;
 public class ReportsController : ControllerBase
 {
     [HttpPost("Generate")]
-    [ProducesResponseType<Report>(StatusCodes.Status200OK)]
+    [ProducesResponseType<string>(StatusCodes.Status200OK)]
     public IActionResult Generate(IGenerateReportUseCase useCase, Report document)
     {
-        string result = useCase.Execute(document);
-
-        return Ok(result);
+        return Ok(useCase.Execute(document));
     }
 }
