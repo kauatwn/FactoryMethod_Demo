@@ -18,7 +18,7 @@ public class PdfReportFactoryTests
     }
 
     [Fact]
-    public void ShouldCreatePdfReportServiceWithWatermarkWhenIsProvided()
+    public void ShouldCreatePdfReportServiceWithWatermarkWhenProvided()
     {
         // Arrange
         var options = new ReportOptions { PdfWatermark = "Custom PDF Watermark" };
@@ -37,7 +37,7 @@ public class PdfReportFactoryTests
     }
 
     [Fact]
-    public void ShouldCreatePdfReportServiceWithDefaultWatermarkWhenIsNotProvided()
+    public void ShouldCreatePdfReportServiceWithDefaultWatermarkWhenNotProvided()
     {
         // Arrange
         var options = new ReportOptions();
