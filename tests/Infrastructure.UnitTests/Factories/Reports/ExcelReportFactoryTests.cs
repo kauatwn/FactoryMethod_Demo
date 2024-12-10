@@ -18,7 +18,7 @@ public class ExcelReportFactoryTests
     }
 
     [Fact]
-    public void ShouldCreateExcelReportServiceWithTemplateWhenIsProvided()
+    public void ShouldCreateExcelReportServiceWithTemplateWhenProvided()
     {
         // Arrange
         var options = new ReportOptions { ExcelTemplate = "Custom Excel Template" };
@@ -37,7 +37,7 @@ public class ExcelReportFactoryTests
     }
 
     [Fact]
-    public void ShouldCreateExcelReportServiceWithDefaultTemplateWhenIsNotProvided()
+    public void ShouldCreateExcelReportServiceWithDefaultTemplateWhenNotProvided()
     {
         // Arrange
         var options = new ReportOptions();
